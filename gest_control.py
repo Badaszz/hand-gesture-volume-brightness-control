@@ -50,6 +50,12 @@ while True:
     handLists = detector.findLmPositions(img)
     if handLists:
             if len(handLists) > 1:
+                '''
+                if more than one hand is sensed
+                (the htm module is configured to only sense two hands at the same time) 
+                then loop through those two hands and check which is left or right 
+                then proceed accordingly
+                '''
                 for lmlist in handLists:
                     if lmlist[4][1] < lmlist[20][1]: 
                         #left hand for volume control
@@ -95,6 +101,7 @@ while True:
                             sbc.set_brightness(brightness)
                         
             else:
+                #if only one hand is sensed then we would check that one hand, whether it is the right hand or left hand and procedd accordingly
                 lmlist = handLists[0]
                 if lmlist[4][1] < lmlist[20][1]: 
                     #left hand for volume control
@@ -141,12 +148,12 @@ while True:
                         sbc.set_brightness(brightness)
         
     filled_height = int(((vol - minVol) / (maxVol - minVol)) * (100)) # Calculate the filled height of the volume bar
-    cv2.rectangle(img, (25,100), (40,200), (0,255,0), 2) 
-    cv2.rectangle(img, (25, 200 - filled_height), (40, 200), (0,255,0), cv2.FILLED)
+    cv2.rectangle(img, (25,100), (40,200), (0,255,0), 2) #hollow rectangle for the volume bar
+    cv2.rectangle(img, (25, 200 - filled_height), (40, 200), (0,255,0), cv2.FILLED) #solid rectangle, with height relatice to the brightness
     
-    filled_height_b = int(((brightness - minBrightness) / (maxBrightness - minBrightness)) * (100)) 
-    cv2.rectangle(img, (5,100), (20,200), (255,0,0), 2) 
-    cv2.rectangle(img, (5, 200 - filled_height_b), (20, 200), (255,0,0), cv2.FILLED)
+    filled_height_b = int(((brightness - minBrightness) / (maxBrightness - minBrightness)) * (100)) #Calculate the filled height of the brightness bar
+    cv2.rectangle(img, (5,100), (20,200), (255,0,0), 2) #hollow rectangle for the brightness bar
+    cv2.rectangle(img, (5, 200 - filled_height_b), (20, 200), (255,0,0), cv2.FILLED) #solid rectangle, with height relatice to the brightness
     
     img2 = cv2.flip(img,1) #flip image if required
     cTime = time.time()
