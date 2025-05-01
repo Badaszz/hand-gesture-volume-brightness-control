@@ -22,9 +22,6 @@ This project enables control of **system volume** and **screen brightness** usin
   - a brightness level (using `screen-brightness-control`)
 - Real-time visual feedback shown on the screen via OpenCV.
 
-## 🖥️ Demo
-![Demo Screenshot](assets/screenshot.png)
-> You can add a short `.gif` or image here to show it in action.
 
 ## 🚀 How to Run
 
